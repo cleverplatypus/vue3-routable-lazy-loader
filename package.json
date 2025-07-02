@@ -30,6 +30,7 @@
   "author": "Nicola Dal Pont",
   "repository": {
     "type": "git",
+    "url": "https://github.com/cleverplatypus/vue3-routable-lazy-loader.git"
     },
   "license": "MIT",
   "peerDependencies": {
