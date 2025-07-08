@@ -10,7 +10,15 @@ import path from 'path'
 const VIRTUAL_MODULE_ID = 'virtual:vue3-routable-manifest'
 const RESOLVED_VIRTUAL_MODULE_ID = '\0' + VIRTUAL_MODULE_ID
 
-export default function vue3RoutablePlugin(): Plugin {
+const collectAllPaths = async (root: string, paths: string[]) => {
+  const files = await Promise.all(
+    paths.map((p) => collectFiles(path.join(root, p), /\.ts$/))
+  )
+  return files.flat()
+}
+
+
+export default function vue3RoutablePlugin({paths } : {paths : string[]} = {paths : ['src']}): Plugin {
   let root = process.cwd()
   const registry: Array<{ match: Array<string | RegExp>; path: string }> = []
 
@@ -24,10 +32,7 @@ export default function vue3RoutablePlugin(): Plugin {
 
     async buildStart() {
       // Collect files (you might want to make this configurable)
-      const files = await collectFiles(
-        path.join(root, 'src/controllers'),
-        /\.ts$/
-      )
+      const files = await collectAllPaths(root, paths)
       for (const file of files) {
         const code = await fs.readFile(file, 'utf-8')
         const ast = parse(code, {

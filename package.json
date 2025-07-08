@@ -1,6 +1,6 @@
 {
   "name": "vue3-routable-lazy-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A vite plug-in to enable lazy loading to vue3-routable projects",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
