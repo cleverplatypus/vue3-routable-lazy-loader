@@ -1,4 +1,5 @@
 # vue3-routable-lazy-loader
+![NPM Version](https://img.shields.io/npm/v/vue3-routable-lazy-loader)
 
 A vite plugin to enable lazy loading to vue3-routable projects.
 
@@ -51,4 +52,30 @@ export default class SomeGenericRoutableController {
     shouldActivate(route: RouteLocation) {
         return this.targetRoutes.includes(route.name as string)
     }
+```
+
+## Specifying the expression's match target
+![Static Badge](https://img.shields.io/badge/Since-v.1.0.2-yellow)
+![Static Badge](https://img.shields.io/badge/Vue3--Routable-v.1.0.2-yellow)
+
+Vue3-Routable allows to override the default match target for specific routable objects/classes.
+
+```ts
+ type RouteMatchTarget = 'name' | 'name-chain' | 'path' | string;
+```
+
+```ts
+@Routable('product.options', 'name-chain')
+export default class ProductOptionsScreenController {
+    //...
+}
+```
+
+When making files lazy loadable via the `ROUTABLE_TARGETS` export, it's possible to do the same override passing a `RouteMatchTarget' object:
+
+```ts
+export const ROUTABLE_TARGETS = {
+    expression: ['product.options'],
+    matchTarget: 'name-chain'
+}
 ```
